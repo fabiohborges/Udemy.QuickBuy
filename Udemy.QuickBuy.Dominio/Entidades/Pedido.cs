@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Udemy.QuickBuy.Dominio.ObjetoDeValor;
 
 namespace Udemy.QuickBuy.Dominio.Entidades
 {
-	public class Pedido
+	public class Pedido : Entidade
 	{
 		public int Id { get; set; }
 		public DateTime DataPedido { get; set; }
@@ -23,5 +24,19 @@ namespace Udemy.QuickBuy.Dominio.Entidades
 		/// ou muitos itens de pedidos
 		/// </summary>
 		public ICollection<ItemPedido> ItensPedido { get; set; }
+
+		public override void Validade()
+		{
+			LimparMensagensValidacao();
+
+			if (!ItensPedido.Any())
+				AdicionarCritica("Pedido não pode ficar sem Item de Pedido");
+
+			if (string.IsNullOrEmpty(CEP))
+				AdicionarCritica("Cep deve estar preenchido");
+
+			if (FormaPagamentoId == 0)
+				AdicionarCritica("Não foi informado a forma de pagamento");
+		}
 	}
 }
