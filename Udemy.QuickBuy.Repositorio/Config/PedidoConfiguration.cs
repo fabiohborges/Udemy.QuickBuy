@@ -42,6 +42,8 @@ namespace Udemy.QuickBuy.Repositorio.Config
 				.Property(p => p.NumeroEndereco)
 				.IsRequired()
 				.HasMaxLength(50);
+
+			builder.HasOne(p => p.FormaPagamento);
 		}
 	}
 }
