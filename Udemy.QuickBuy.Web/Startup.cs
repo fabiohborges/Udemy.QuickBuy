@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Udemy.QuickBuy.Dominio.Contratos;
 using Udemy.QuickBuy.Repositorio.Contexto;
+using Udemy.QuickBuy.Repositorio.Repositorios;
 
 namespace Udemy.QuickBuy.Web
 {
@@ -28,6 +30,8 @@ namespace Udemy.QuickBuy.Web
 														option.UseLazyLoadingProxies()
 														.UseMySql(connectionString,
 																			m => m.MigrationsAssembly("Udemy.QuickBuy.Repositorio")));
+
+			services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
 
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>

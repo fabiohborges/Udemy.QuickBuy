@@ -1,46 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Udemy.QuickBuy.Dominio.Contratos;
+using Udemy.QuickBuy.Repositorio.Contexto;
 
 namespace Udemy.QuickBuy.Repositorio.Repositorios
 {
 	public class BaseRepositorio<TEntity> : IBaseRepositorio<TEntity> where TEntity : class
 	{
+		protected readonly QuickBuyContexto QuickBuyContexto;
 
-		public BaseRepositorio()
+		public BaseRepositorio(QuickBuyContexto quickBuyContexto)
 		{
-
+			this.QuickBuyContexto = quickBuyContexto;
 		}
 
 		public void Adicionar(TEntity entity)
 		{
-			throw new NotImplementedException();
+			this.QuickBuyContexto.Set<TEntity>().Add(entity);
+			this.QuickBuyContexto.SaveChanges();
 		}
 
 		public void Atualizar(TEntity entity)
 		{
-			throw new NotImplementedException();
-		}
-
-		public void Dispose()
-		{
-			throw new NotImplementedException();
-		}
-
-		public TEntity ObterPorId(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public IEnumerable<TEntity> ObterTodos()
-		{
-			throw new NotImplementedException();
+			this.QuickBuyContexto.Set<TEntity>().Update(entity);
+			this.QuickBuyContexto.SaveChanges();
 		}
 
 		public void Remover(TEntity entity)
 		{
-			throw new NotImplementedException();
+			//this.QuickBuyContexto.Set<TEntity>().Remove(entity);
+			this.QuickBuyContexto.Remove(entity);
+			this.QuickBuyContexto.SaveChanges();
+		}
+
+		public TEntity ObterPorId(int id)
+		{
+			return this.QuickBuyContexto.Set<TEntity>().Find(id);
+		}
+
+		public IEnumerable<TEntity> ObterTodos()
+		{
+			return this.QuickBuyContexto.Set<TEntity>().ToList();
+		}
+
+		public void Dispose()
+		{
+			this.QuickBuyContexto.Dispose();
 		}
 	}
 }
