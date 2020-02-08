@@ -1,0 +1,3 @@
+ - abre o cmd
+ - cd C:\Users\fabio\source\repos\.net\Udemy.QuickBuy\Udemy.QuickBuy.Web\ClientApp
+ - npmstart

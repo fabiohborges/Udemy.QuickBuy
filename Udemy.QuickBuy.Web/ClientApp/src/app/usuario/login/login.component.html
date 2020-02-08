@@ -1,14 +1,36 @@
 <div class="text-center">
-  <form class="">
-    <h1 class="h4">Login do Cliente</h1>
+  <form class="form-signin">
+    <h1 class="h4 mb-2 login">Login do Cliente</h1>
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail"
            name="email" placeholder="Informe o seu Email"
-           class="form-control" />
+           class="form-control mb-2"
+           [(ngModel)]="usuario.email" />
     <label for="inputSenha" class="sr-only">Senha</label>
     <input type="password" id="inputSenha"
            name="senha" placeholder="Senha"
-           class="form-control" />
-    <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+           class="form-control mb-2"
+           [(ngModel)]="usuario.senha" />
+    <button class="btn btn-primary btn-block" type="submit" (click)="entrar()">Entrar</button>
+    {{usuario.email}}
+    {{usuario.senha}}
+
+    <img [src]="enderecoImagem" [title]="titulo" />
+    <img src="../../../assets/img/quick-b-logo.png" />
+
+    <div class=" alert alert-primary" role="alert" *ngIf="usuarioAutenticado">
+      Usuário Autenticado!
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <div *ngFor="let user of usuarios">
+        {{user}}
+      </div>
+    </div>
+
+    <div class="alert alert-warning" role="alert" *ngFor="let user of usuarios">
+      {{user}}
+    </div>
+
   </form>
 </div>
