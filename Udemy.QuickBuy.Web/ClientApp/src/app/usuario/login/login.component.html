@@ -5,32 +5,70 @@
     <input type="email" id="inputEmail"
            name="email" placeholder="Informe o seu Email"
            class="form-control mb-2"
-           [(ngModel)]="usuario.email" />
+           [ngClass]="{
+            'is-invalid': email.invalid && (email.dirty || email.touched),
+            'is-valid': email.valid && (email.dirty || email.touched)
+           }"
+           [(ngModel)]="usuario.email"
+           #email="ngModel"
+           email
+           required />
+    <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors.required">
+        O email é obrigatório
+      </div>
+      <div *ngIf="email.errors.email">
+        O email não está no formato correto
+      </div>
+      <!--<div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+    <div *ngIf="email.errors.required">
+      O email é obrigatório
+    </div>
+    <div *ngIf="email.errors.email">
+      O email não está no formato correto
+    </div>-->
+    </div>
     <label for="inputSenha" class="sr-only">Senha</label>
     <input type="password" id="inputSenha"
            name="senha" placeholder="Senha"
            class="form-control mb-2"
-           [(ngModel)]="usuario.senha" />
+           [ngClass]="{
+            'is-invalid': senha.invalid && (senha.dirty || senha.touched),
+            'is-valid': senha.valid && (senha.dirty || senha.touched)
+           }"
+           [(ngModel)]="usuario.senha"
+           #senha="ngModel"
+           required />
+    <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+      <div *ngIf="senha.errors.required">
+        A senha é obrigatória
+      </div>
+    </div>
+    <!--<div class="alert alert-danger" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+    <div *ngIf="senha.errors.required">
+      A senha é obrigatória
+    </div>
+  </div>-->
     <button class="btn btn-primary btn-block" type="submit" (click)="entrar()">Entrar</button>
     {{usuario.email}}
     {{usuario.senha}}
 
-    <img [src]="enderecoImagem" [title]="titulo" />
+    <!--<img [src]="enderecoImagem" [title]="titulo" />-->
     <img src="../../../assets/img/quick-b-logo.png" />
 
-    <div class=" alert alert-primary" role="alert" *ngIf="usuarioAutenticado">
-      Usuário Autenticado!
-    </div>
+    <!--<div class=" alert alert-primary" role="alert" *ngIf="usuarioAutenticado">
+    Usuário Autenticado!
+  </div>
 
-    <div class="alert alert-warning" role="alert">
-      <div *ngFor="let user of usuarios">
-        {{user}}
-      </div>
-    </div>
-
-    <div class="alert alert-warning" role="alert" *ngFor="let user of usuarios">
+  <div class="alert alert-warning" role="alert">
+    <div *ngFor="let user of usuarios">
       {{user}}
     </div>
+  </div>
+
+  <div class="alert alert-warning" role="alert" *ngFor="let user of usuarios">
+    {{user}}
+  </div>-->
 
   </form>
 </div>
