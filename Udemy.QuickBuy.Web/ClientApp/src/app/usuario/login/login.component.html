@@ -49,6 +49,9 @@
       A senha é obrigatória
     </div>
   </div>-->
+    <div class="alert alert-danger" *ngIf="senhaIncorreta">
+      Usuário ou senha incorreta
+  </div>
     <button class="btn btn-primary btn-block" type="submit" (click)="entrar()">Entrar</button>
     {{usuario.email}}
     {{usuario.senha}}
