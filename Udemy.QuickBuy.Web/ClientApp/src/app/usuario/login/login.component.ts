@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Usuario } from "../../model/usuario";
 import { Router, ActivatedRoute } from "@angular/router"
+import { UsuarioServico } from "src/app/servicos/usuario/usuario.servico";
 
 @Component({
   selector: "app-login",
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   public usuarios = ["usuario1", "usuario2", "usuario3", "usuario4", "usuario5"];
   public returnUrl: string;
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) {
+  constructor(private router: Router, private activatedRouter: ActivatedRoute,
+                private usuarioServico: UsuarioServico) {
   }
 
   ngOnInit(): void {
@@ -29,21 +31,30 @@ export class LoginComponent implements OnInit {
 
   entrar() {
 
-    if (this.usuario.email == "fabiohborges@gmail.com" && this.usuario.senha == "1234") {
-      //localStorage.setItem("usuario-autenticado", "1")
-      sessionStorage.setItem("usuario-autenticado", "1");
-      //this.router.navigate(['/']);
-      if (this.returnUrl != undefined) {
-        this.router.navigate([this.returnUrl]);
-      } else {
-        this.router.navigate(['/']);
-      }
+    this.usuarioServico.verificaUsuario(this.usuario)
+      .subscribe({
+        data => {
+
+        },
+        err => {
+
+        }
+      });
+    //if (this.usuario.email == "fabiohborges@gmail.com" && this.usuario.senha == "1234") {
+    //  //localStorage.setItem("usuario-autenticado", "1")
+    //  sessionStorage.setItem("usuario-autenticado", "1");
+    //  //this.router.navigate(['/']);
+    //  if (this.returnUrl != undefined) {
+    //    this.router.navigate([this.returnUrl]);
+    //  } else {
+    //    this.router.navigate(['/']);
+    //  }
       
-      this.usuarioAutenticado = true;
-      this.senhaIncorreta = false;
-    } else {
-      this.senhaIncorreta = true;
-    }
-    //alert(this.usuario.email + " - " + this.usuario.senha)
+    //  this.usuarioAutenticado = true;
+    //  this.senhaIncorreta = false;
+    //} else {
+    //  this.senhaIncorreta = true;
+    //}
+    ////alert(this.usuario.email + " - " + this.usuario.senha)
   }
 }
